@@ -7,11 +7,11 @@ https://github.com/dusty-nv/pytorch-ssd
 
 This is a Single Shot MultiBox Detector using MobilNet. We basically followed this example as was documented at the time and I still shown in the following link that was used to develop this repository. 
 
+https://github.com/qfgaohao/pytorch-ssd
+
 The models and vision subdirectories should be copied from @dusty-nv repository. 
 
 We will allow for the downloading of the marine dataset and models through AWS in the near future if requested.
-
-https://github.com/qfgaohao/pytorch-ssd
 
 ## Labelimg:
 We first started with labelimg. 
