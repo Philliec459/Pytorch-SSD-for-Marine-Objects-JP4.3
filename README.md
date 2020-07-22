@@ -7,6 +7,10 @@ This is a Single Shot MultiBox Detector using MobilNet. We basically followed hi
 
 https://github.com/qfgaohao/pytorch-ssd
 
+@dusty-nv has a newer implementation of pytorch-ssd that was just announced (see link below), and we will be trying to implement this once we move to JP4.4 on the Jetson NX. 
+
+https://github.com/dusty-nv/jetson-inference/blob/master/docs/pytorch-ssd.md
+
 The models and vision subdirectories are not included here in this GitHub repository and can be copied from the @dusty-nv pytorch-ssd repository if needed or downloaded from the link below. 
 
 We have also placed 256MB of data on AWS:
