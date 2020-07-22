@@ -2,12 +2,15 @@
 The objective of this project is to identify marine objects using pytorch-ssd.
 
 
-
 This marine SSD repository was inspired by Dusty Franklin’s (@dusty-nv) pytorch-ssd GitHub repository found at the following link:
 
 https://github.com/dusty-nv/pytorch-ssd
 
 This is a Single Shot MultiBox Detector using MobilNet. We basically followed this example as was documented at the time and I still shown in the following link that was used to develop this repository. 
+
+The models and vision subdirectories should be copied from @dusty-nv repository. 
+
+We will allow for the downloading of the marine dataset and models through AWS in the near future.
 
 https://github.com/qfgaohao/pytorch-ssd
 
@@ -59,7 +62,8 @@ The class-description-bbox.csv has all of the LabelNames and descriptions for al
 It does not appear that the sub-validation-annotations-bbox.csv file is used, but we did have some images and the corresponding .csv file as was used in the original example.
 
 
-Notes found in attached scripts.txt file
+
+Notes found in attached scripts.txt file
 
 # VIDEO:
 #This is pretty fast in Object Detection and near real-time
