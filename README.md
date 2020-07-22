@@ -73,7 +73,7 @@ The class-description-bbox.csv has all of the LabelNames and descriptions for al
 We are unsure if the sub-validation-annotations-bbox.csv file is used, but to be consistent with the examples we did supply some images with the corresponding .csv file as was used in the original example.
 
 
-## Notes: The following commands were used in our procession and are given here to be used as examples. 
+## Notes: The following commands were used in our processing and are shown below to be used as examples. 
 
 ### VIDEO:
     #This is pretty fast in Object Detection and near real-time
