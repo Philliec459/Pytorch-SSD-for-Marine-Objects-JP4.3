@@ -1,7 +1,6 @@
 # Pytorch-SSD for Marine Objects 
 The objective of this project is to identify marine objects using pytorch-ssd.
 
-
 This marine SSD repository was inspired by Dusty Franklin’s (@dusty-nv) pytorch-ssd GitHub repository found at the following link:
 
 https://github.com/dusty-nv/pytorch-ssd
@@ -14,19 +13,16 @@ We will allow for the downloading of the marine dataset and models through AWS i
 
 https://github.com/qfgaohao/pytorch-ssd
 
+# Labelimg:
 We first started with labelimg. 
-
 
 ![Marine_Image](labelimg.png)
 
-
 We created rectangular boxes for all the marine objects (boats and buoys) found in each image using labelimg in the PascalVOC mode. Labelimg creates a corresponding .xml file for each marine image. We had 315 .jpg training images and 44 .jpg test images.
-
 
 We then used xml_to_csv.py to create a single csv file for the training set and one for the test set.
 
 ![Marine_Image](labelimg_csv.png)
-
 
 However, pytorch-ssd wants a sub-train-annotations-bbox.csv or a sub-test-annotations-bbox.csv file that looks like the following:
 
@@ -62,8 +58,7 @@ The class-description-bbox.csv has all of the LabelNames and descriptions for al
 It does not appear that the sub-validation-annotations-bbox.csv file is used, but we did have some images and the corresponding .csv file as was used in the original example.
 
 
-
-Notes found in attached scripts.txt file
+# Notes found in attached scripts.txt file
 
 # VIDEO:
 #This is pretty fast in Object Detection and near real-time
@@ -74,32 +69,32 @@ python3 run_ssd_live_caffe2.py models/mobilenet-v1-ssd_init_net.pb models/mobile
 
 
 
-#ReTrain:
+### ReTrain:
 python3 train_ssd.py --dataset_type open_images --datasets ~/data/open_images --net mb1-ssd --pretrained_ssd models/mobilenet-v1-ssd-mp-0_675.pth --scheduler cosine --lr 0.01 --t_max 100 --validation_epochs 5 --num_epochs 20 --base_net_lr 0.001  --batch_size 5
 
-#final train, batch is number of samples processed
+### final train, batch is number of samples processed
 python3 train_ssd.py --dataset_type open_images --datasets ~/data/open_images --net mb1-ssd --pretrained_ssd models/mobilenet-v1-ssd-mp-0_675.pth --scheduler cosine --lr 0.01 --t_max 100 --validation_epochs 5 --num_epochs 100 --base_net_lr 0.001  --batch_size 5
 
 
-#test validation. I do not see this validation set being loaded in training, but the results are near perfect
+### test validation. I do not see this validation set being loaded in training, but the results are near perfect
 python3 train_ssd.py --dataset_type open_images --datasets ~/data/open_images --net mb1-ssd --pretrained_ssd models/mobilenet-v1-ssd-mp-0_675.pth --validation_dataset ~/data/open_images --scheduler cosine --lr 0.01 --t_max 100 --validation_epochs 5 --num_epochs 100 --base_net_lr 0.001  --batch_size 5
 
 
 
 
-#Test on Image
+### Test on Image
 python3 run_ssd_example.py mb1-ssd models/mb1-ssd-Epoch-19-Loss-2.7059561729431154.pth  models/voc-model-labels.txt ./readme_ssd_example.jpg
 
 python3 run_ssd_example.py mb1-ssd models/mobilenet-v1-ssd-mp-0_675.pth models/voc-model-labels.txt ./45.jpg
 
 
 
-# run on mp4 file, works great:
+### run on mp4 file, works great:
 #python3 run_ssd_live_demo.py <net type>  <model path> <label path> [video file]
 python3 run_ssd_live_demo.py mb1-ssd models/mb1-ssd-Epoch-99-Loss-1.9556251300705805.pth  models/open-images-model-labels.txt ./buoy_boats.mp4
 
 
-# try to use all but marine labels for objects. This works fine, but too many objects. 
+### try to use all but marine labels for objects. This works fine, but too many objects. 
 python3 run_ssd_live_demo.py mb1-ssd models/mobilenet-v1-ssd-mp-0_675.pth models/voc-model-labels.txt ./buoy_boats.mp4
 
 
