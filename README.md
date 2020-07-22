@@ -16,8 +16,8 @@ https://cbpetro.s3.us-east-2.amazonaws.com/api/download/pytorch-ssd-marine-data-
 This zip file has the following data:
 
 		/data/open_images/.....    # This is the open_images dataset
-		/data/models/....          # This is the models sub directory that should be placed in pytorch-ssd-marine
-		/data/vision/....          # This is the vision subdirectory that should be placed in pytorch-ssd-marine
+		/data/models/....          # This is the models sub directory that should be removed and placed in pytorch-ssd-marine
+		/data/vision/....          # This is the vision subdirectory that should be removed and placed in pytorch-ssd-marine
 
 The /data/open_images/... is the dataset with training, test and validation images and appropriate .csv files. Please place the /data/open_images/... under your ~/home directory on the Jetson. The /models/... are the models (including training data) and /vision/... folders should be removed from data and placed in the downloaded pytorch-ssd-marine subdirectory.   
 
