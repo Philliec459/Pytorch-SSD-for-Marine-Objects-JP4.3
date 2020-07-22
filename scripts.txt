@@ -1,0 +1,161 @@
+# VIDEO:
+#This is pretty fast in Object Detection and near real-time
+python3 run_ssd_live_demo.py mb1-ssd models/mobilenet-v1-ssd-mp-0_675.pth models/voc-model-labels.txt '/dev/video1'  # dump core 
+
+# does not work
+python3 run_ssd_live_demo.py mb2-ssd-lite models/mb2-ssd-lite-mp-0_686.pth models/voc-model-labels.txt '/dev/video1'  # video 
+
+
+#Very good and runs well - best
+python3 run_ssd_live_caffe2.py models/mobilenet-v1-ssd_init_net.pb models/mobilenet-v1-ssd_predict_net.pb models/voc-model-labels.txt  '/dev/video1'
+
+#This does not run with cpu and cuda error???
+python3 run_ssd_live_demo.py mb2-ssd-lite models/mb2-ssd-lite-mp-0_686.pth models/voc-model-labels.txt 
+
+#not working. The model does not fit something and errors in Unexpected keys???
+python3 run_ssd_live_demo.py vgg16-ssd models/vgg16_reducedfc.pth models/voc-model-labels.txt '/dev/video1'# video 
+
+
+
+
+
+#Download data:
+python open_images_downloader.py --root ~/data/open_images --class_names "Handgun,Shotgun" --num_workers 20
+
+
+
+#ReTrain:
+python3 train_ssd.py --dataset_type open_images --datasets ~/data/open_images --net mb1-ssd --pretrained_ssd models/mobilenet-v1-ssd-mp-0_675.pth --scheduler cosine --lr 0.01 --t_max 100 --validation_epochs 5 --num_epochs 20 --base_net_lr 0.001  --batch_size 5
+
+#final train, batch is number of samples processed
+python3 train_ssd.py --dataset_type open_images --datasets ~/data/open_images --net mb1-ssd --pretrained_ssd models/mobilenet-v1-ssd-mp-0_675.pth --scheduler cosine --lr 0.01 --t_max 100 --validation_epochs 5 --num_epochs 100 --base_net_lr 0.001  --batch_size 5
+
+#test validation. I do not see this set being loaded in training, but the results are near perfect
+python3 train_ssd.py --dataset_type open_images --datasets ~/data/open_images --net mb1-ssd --pretrained_ssd models/mobilenet-v1-ssd-mp-0_675.pth --validation_dataset ~/data/open_images --scheduler cosine --lr 0.01 --t_max 100 --validation_epochs 5 --num_epochs 100 --base_net_lr 0.001  --batch_size 5
+
+#test validation. I do not see this set being loaded in training, but the results are near perfect
+python3 train_ssd.py --dataset_type open_images --datasets ~/data/open_images --net mb1-ssd --pretrained_ssd models/mobilenet-v1-ssd-mp-0_675.pth --validation_dataset ~/data/open_images --scheduler cosine --lr 0.01 --t_max 100 --validation_epochs 5 --num_epochs 100 --base_net_lr 0.001  --batch_size 5
+
+
+
+
+#Test on Image
+python3 run_ssd_example.py mb1-ssd models/mb1-ssd-Epoch-19-Loss-2.7059561729431154.pth  models/voc-model-labels.txt ./readme_ssd_example.jpg
+
+python3 run_ssd_example.py mb1-ssd models/mobilenet-v1-ssd-mp-0_675.pth models/voc-model-labels.txt ./45.jpg
+
+
+
+# run on mp4 file, works great:
+#python3 run_ssd_live_demo.py <net type>  <model path> <label path> [video file]
+python3 run_ssd_live_demo.py mb1-ssd models/mb1-ssd-Epoch-99-Loss-1.9556251300705805.pth  models/open-images-model-labels.txt ./buoy_boats.mp4
+
+# try to use all labels for objects - not work. mismatch in model number of labels 
+python3 run_ssd_live_demo.py mb1-ssd models/mb1-ssd-Epoch-99-Loss-1.9556251300705805.pth  models/voc-model-labels-marine.txt ./buoy_boats.mp4
+
+# try to use all but marine labels for objects. This works fine, but too many objects. 
+python3 run_ssd_live_demo.py mb1-ssd models/mobilenet-v1-ssd-mp-0_675.pth models/voc-model-labels.txt ./buoy_boats.mp4
+
+
+python3 run_ssd_live_demo.py mb1-ssd models/mb1-ssd-Epoch-99-Loss-1.9556251300705805.pth  models/open-images-model-labels.txt ./sail.mp4
+
+mb1-ssd-Epoch-99-Loss-1.9556251300705805 # this is the model from 100 epochs for marine objects
+
+python3 run_ssd_example.py mb1-ssd models/mb1-ssd-Epoch-99-Loss-1.9556251300705805.pth  models/open-images-model-labels.txt ./buoy.jpg
+
+#from dusty display = jetson.utils.glDisplay(width=camera.GetWidth()+10, height=camera.GetHeight()+30)
+
+python3 eval_ssd.py --net mb1-ssd --dataset ~/data/open_images/train/ --trained_model models/mb1-ssd-Epoch-99-Loss-1.9556251300705805.pth --label_file models/open-images-model-labels.txt
+
+
+
+
+
+
+python3 train_ssd.py -h
+usage: train_ssd.py [-h] [--dataset_type DATASET_TYPE]
+                    [--datasets DATASETS [DATASETS ...]]
+                    [--validation_dataset VALIDATION_DATASET] [--balance_data]
+                    [--net NET] [--freeze_base_net] [--freeze_net]
+                    [--mb2_width_mult MB2_WIDTH_MULT] [--lr LR]
+                    [--momentum MOMENTUM] [--weight_decay WEIGHT_DECAY]
+                    [--gamma GAMMA] [--base_net_lr BASE_NET_LR]
+                    [--extra_layers_lr EXTRA_LAYERS_LR] [--base_net BASE_NET]
+                    [--pretrained_ssd PRETRAINED_SSD] [--resume RESUME]
+                    [--scheduler SCHEDULER] [--milestones MILESTONES]
+                    [--t_max T_MAX] [--batch_size BATCH_SIZE]
+                    [--num_epochs NUM_EPOCHS] [--num_workers NUM_WORKERS]
+                    [--validation_epochs VALIDATION_EPOCHS]
+                    [--debug_steps DEBUG_STEPS] [--use_cuda USE_CUDA]
+                    [--checkpoint_folder CHECKPOINT_FOLDER]
+
+Single Shot MultiBox Detector Training With Pytorch
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --dataset_type DATASET_TYPE
+                        Specify dataset type. Currently support voc and
+                        open_images.
+  --datasets DATASETS [DATASETS ...]
+                        Dataset directory path
+  --validation_dataset VALIDATION_DATASET
+                        Dataset directory path
+  --balance_data        Balance training data by down-sampling more frequent
+                        labels.
+  --net NET             The network architecture, it can be mb1-ssd, mb1-lite-
+                        ssd, mb2-ssd-lite or vgg16-ssd.
+  --freeze_base_net     Freeze base net layers.
+  --freeze_net          Freeze all the layers except the prediction head.
+  --mb2_width_mult MB2_WIDTH_MULT
+                        Width Multiplifier for MobilenetV2
+  --lr LR, --learning-rate LR
+                        initial learning rate
+  --momentum MOMENTUM   Momentum value for optim
+  --weight_decay WEIGHT_DECAY
+                        Weight decay for SGD
+  --gamma GAMMA         Gamma update for SGD
+  --base_net_lr BASE_NET_LR
+                        initial learning rate for base net.
+  --extra_layers_lr EXTRA_LAYERS_LR
+                        initial learning rate for the layers not in base net
+                        and prediction heads.
+  --base_net BASE_NET   Pretrained base model
+  --pretrained_ssd PRETRAINED_SSD
+                        Pre-trained base model
+  --resume RESUME       Checkpoint state_dict file to resume training from
+  --scheduler SCHEDULER
+                        Scheduler for SGD. It can one of multi-step and cosine
+  --milestones MILESTONES
+                        milestones for MultiStepLR
+  --t_max T_MAX         T_max value for Cosine Annealing Scheduler.
+  --batch_size BATCH_SIZE
+                        Batch size for training
+  --num_epochs NUM_EPOCHS
+                        the number epochs
+  --num_workers NUM_WORKERS
+                        Number of workers used in dataloading
+  --validation_epochs VALIDATION_EPOCHS
+                        the number epochs
+  --debug_steps DEBUG_STEPS
+                        Set the debug log output frequency.
+  --use_cuda USE_CUDA   Use CUDA to train model
+  --checkpoint_folder CHECKPOINT_FOLDER
+                        Directory for saving checkpoint models
+
+
+
+
+#New Training trying to be able to use all prior objects from pretrained model with Marine objects too.
+#test validation. I do not see this set being loaded in training, but the results are near perfect
+#copy voc-model-labels-marine.txt to open-images-model-labels.txt. The label file got re-copied over. Re-write training code not to do that or change label text file in data??????
+python3 train_ssd.py --dataset_type open_images --datasets ~/data/open_images --net mb1-ssd --pretrained_ssd models/mobilenet-v1-ssd-mp-0_675.pth --validation_dataset ~/data/open_images --scheduler cosine --lr 0.01 --t_max 100 --validation_epochs 5 --num_epochs 100 --base_net_lr 0.001  --batch_size 5
+
+mb1-ssd-Epoch-99-Loss-2.056125972006056.pth
+
+# run on mp4 file, works great:
+#python3 run_ssd_live_demo.py <net type>  <model path> <label path> [video file]
+python3 run_ssd_live_demo.py mb1-ssd models/mb1-ssd-Epoch-99-Loss-2.056125972006056.pth  models/open-images-model-labels.txt ./buoy_boats.mp4
+
+
+
+
