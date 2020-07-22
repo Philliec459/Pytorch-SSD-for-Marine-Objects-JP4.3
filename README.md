@@ -7,15 +7,17 @@ This is a Single Shot MultiBox Detector using MobilNet. We basically followed hi
 
 https://github.com/qfgaohao/pytorch-ssd
 
-The models and vision subdirectories are not included here in GitHub and can be copied from @dusty-nv repository if needed. We have also placed 256MB of data on AWS at the following link:
+The models and vision subdirectories are not included here in this GitHub repository and can be copied from the @dusty-nv pytorch-ssd repository if needed or downloaded from the link below. 
+
+We have also placed 256MB of data on AWS:
 
 https://cbpetro.s3.us-east-2.amazonaws.com/api/download/pytorch-ssd-marine-data-models-vision.zip
 
-This zip file will have the following data:
+This zip file has the following data:
 
-		/data/open_images/.....
-		/data/models/....
-		/data/vision/....
+		/data/open_images/.....    # This is the open_images dataset
+		/data/models/....          # This is the models sub directory that should be placed in pytorch-ssd-marine
+		/data/vision/....          # This is the vision subdirectory that should be placed in pytorch-ssd-marine
 
 The /data/open_images/... is the dataset with training, test and validation images and appropriate .csv files. Please place the /data/open_images/... under your ~/home directory on the Jetson. The /models/... are the models (including training data) and /vision/... folders should be removed from data and placed in the downloaded pytorch-ssd-marine subdirectory.   
 
@@ -26,10 +28,10 @@ https://github.com/tzutalin/labelImg
 
 ![Marine_Image](labelimg.png)
 
-We created rectangular boxes for all the marine objects (boats and buoys) found in each image using labelimg in the PascalVOC mode. By default Labelimg creates a corresponding .xml file for each image. We had 315 .jpg training images and 44 .jpg test images.
+We created rectangular boxes or labels for all the marine objects (boats and buoys) found in each image using labelimg in the PascalVOC mode. By default labelimg creates a corresponding .xml file for each image. We had 315 .jpg training images and 44 .jpg test images with their corresponding .xml files.
 
 ## xml_to_csv2.py
-We obtained a program to create a single .csv file for the training, test and validation subdirectories. We obtained xml_to_csv.py from the following source:
+We downloaded a program to create a single .csv file from the .xml files for the training, test and validation subdirectories. We obtained xml_to_csv.py from the following source:
 
 https://github.com/datitran/raccoon_dataset/blob/master/xml_to_csv.py
 
@@ -48,30 +50,30 @@ Some of the columns were obvious and some were not. The LabelName is used pytorc
     -i /Users/craig/Documents/src/pytorch-ssd/data/open_images/train \
     -o /Users/craig/Documents/src/pytorch-ssd/data/open_images/sub-train-annotations-bbox.csv
    
-Still, the sub-train-annotations-bbox.csv had to be altered to conform to the true open_images format that was used in this repository. We performed the same steps for the test and validation sets too, again altering the xmp_to_csv2.py .csv output to conform to what pytorch-ssd requires.  
+Still, the sub-train-annotations-bbox.csv had to be altered to conform to the true open_images format that was used in the example repository. We ran a similar script for the test and validation sets too, again altering the xmp_to_csv2.py .csv outputs to conform to the pytorch-ssd open_images requirements.  
 
 
 
 ## data open_images subdirectories
-On the Jetson NX the full marine dataset should have the following structure:
+On the Jetson NX the full marine dataset should have the following structure in the home directory:
 
     ~/data/open_images/train/
 		   /test/
 		   /validate/
 
-Where under ~/data/open_images/ we have the following .csv files. 
+Where under ~/data/open_images/... we have the following .csv files. 
 
     sub-train-annotations-bbox.csv
     sub-test-annotations-bbox.csv
     sub-validation-annotations-bbox.csv
     class-description-bbox.csv
 
-The class-description-bbox.csv has all of the LabelNames and descriptions for all pytorch-ssd objects including our new /m/06nrc for boat and /m/0gxl3 for a buoy added to this list. 
+The class-description-bbox.csv has all of the LabelNames and descriptions for all pytorch-ssd objects including our new /m/06nrc for boat and /m/0gxl3 for a buoy that was added to this list. 
 
-We are unsure if the sub-validation-annotations-bbox.csv file is used, but to be consistent with the examples we did supply some images with corresponding .csv file as was used in the original example.
+We are unsure if the sub-validation-annotations-bbox.csv file is used, but to be consistent with the examples we did supply some images with the corresponding .csv file as was used in the original example.
 
 
-## Notes: The following cryptic scripts were used in the process
+## Notes: The following commands were used in our procession and are given here to be used as examples. 
 
 ### VIDEO:
     #This is pretty fast in Object Detection and near real-time
