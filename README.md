@@ -39,9 +39,11 @@ Some of the columns were obvious and some were not. The LabelName is used pytorc
 Therefore, we wrote the xml_to_csv2.py program that calculated more of the pytorch-ssd type columns as shown above. 
 
 #### run xml_to_csv2.py in training set subdirectories to create the csv label files as is shown below for the training set of images:
-python xml_to_csv2.py \
--i /Users/craig/Documents/src/pytorch-ssd/data/open_images/train \
--o /Users/craig/Documents/src/pytorch-ssd/data/open_images/sub-train-annotations-bbox.csv
+    python xml_to_csv2.py \
+    -i /Users/craig/Documents/src/pytorch-ssd/data/open_images/train \
+    -o /Users/craig/Documents/src/pytorch-ssd/data/open_images/sub-train-annotations-bbox.csv
+   
+![Marine_Image](script.png)
 
 Still, the sub-train-annotations-bbox.csv had to be altered to conform to the true open_images format that was used in this repository.   
 
