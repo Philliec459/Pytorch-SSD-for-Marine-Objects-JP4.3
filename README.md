@@ -10,7 +10,7 @@ This is a Single Shot MultiBox Detector using MobilNet. We basically followed th
 
 The models and vision subdirectories should be copied from @dusty-nv repository. 
 
-We will allow for the downloading of the marine dataset and models through AWS in the near future.
+We will allow for the downloading of the marine dataset and models through AWS in the near future if requested.
 
 https://github.com/qfgaohao/pytorch-ssd
 
