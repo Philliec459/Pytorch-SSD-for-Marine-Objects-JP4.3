@@ -14,14 +14,19 @@ The models and vision subdirectories should be copied from @dusty-nv repository.
 We will allow for the downloading of the marine dataset and models through AWS in the near future if requested.
 
 ## Labelimg:
-We first started with labelimg. 
+We first started with labelimg from the following source:
+
+https://github.com/tzutalin/labelImg
 
 ![Marine_Image](labelimg.png)
 
 We created rectangular boxes for all the marine objects (boats and buoys) found in each image using labelimg in the PascalVOC mode. Labelimg creates a corresponding .xml file for each marine image. We had 315 .jpg training images and 44 .jpg test images.
 
 ## xml_to_csv2.py
-We then used xml_to_csv.py to create a single csv file for the training set and one for the test set.
+We obtained xml_to_csv.py from the following source:
+https://github.com/datitran/raccoon_dataset/blob/master/xml_to_csv.py
+
+We then used xml_to_csv.py to create a single csv file for the training and test datasets.
 
 ![Marine_Image](labelimg_csv.png)
 
@@ -31,14 +36,14 @@ However, pytorch-ssd wants a sub-train-annotations-bbox.csv or a sub-test-annota
 
 Some of the columns were obvious and some were not. The LabelName is used pytorch-ssd, but we were unsure how LabelName and id were labeled. So, we used the same labels from the gun repository but used /m/06nrc for boat and /m/0gxl3 for a buoy. In the original xml_to_csv.py program the xmin/xmax and ymin/ymax were pixels. It appeared that in the pytorch-ssd sub-train-annotations-bbox.csv or a sub-test-annotations-bbox.csv files, that they want a fraction of the image to define the objects. 
 
-Therefore, we wrote the xml_to_csv2.py program that calculated more of the pytorch-ssd columns as shown above. 
+Therefore, we wrote the xml_to_csv2.py program that calculated more of the pytorch-ssd type columns as shown above. 
 
 #### run xml_to_csv2.py in training set subdirectories to create the csv label files as is shown below for the training set of images:
 python xml_to_csv2.py \
 -i /Users/craig/Documents/src/pytorch-ssd/data/open_images/train \
 -o /Users/craig/Documents/src/pytorch-ssd/data/open_images/sub-train-annotations-bbox.csv
 
-Still, the sub-train-annotations-bbox.csv had to be altered to conform to the true open_images format that was used  
+Still, the sub-train-annotations-bbox.csv had to be altered to conform to the true open_images format that was used in this repository.   
 
 ## data open_images subdirectories
 On the Jetson NX the full marine dataset has the following structure:
