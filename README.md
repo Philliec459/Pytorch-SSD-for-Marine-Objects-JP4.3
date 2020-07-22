@@ -9,9 +9,17 @@ This is a Single Shot MultiBox Detector using MobilNet. We basically followed th
 
 https://github.com/qfgaohao/pytorch-ssd
 
-The models and vision subdirectories should be copied from @dusty-nv repository. 
+The models and vision subdirectories can be copied from @dusty-nv repository or downloaded from the link below. We have placed 256MB of data on AWS at the following link:
 
-We will allow for the downloading of the marine dataset and models through AWS in the near future if requested.
+https://cbpetro.s3.us-east-2.amazonaws.com/api/download/pytorch-ssd-marine-data-models-vision.zip
+
+This zip file will have the following:
+
+		/data/open_images/.....
+		/data/models/....
+		/data/vision/....
+
+Please place the /data/open_images/... under your ~/home directory on the Jetson. The /models/... are the models (including training data) and /vision/... folders should be removed from data and placed in this downloaded pytorch-ssd-marine repository.   
 
 ## Labelimg:
 We first started with labelimg from the following source:
