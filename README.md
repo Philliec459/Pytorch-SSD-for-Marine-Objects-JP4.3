@@ -13,13 +13,14 @@ We will allow for the downloading of the marine dataset and models through AWS i
 
 https://github.com/qfgaohao/pytorch-ssd
 
-# Labelimg:
+## Labelimg:
 We first started with labelimg. 
 
 ![Marine_Image](labelimg.png)
 
 We created rectangular boxes for all the marine objects (boats and buoys) found in each image using labelimg in the PascalVOC mode. Labelimg creates a corresponding .xml file for each marine image. We had 315 .jpg training images and 44 .jpg test images.
 
+## xml_to_csv2.py
 We then used xml_to_csv.py to create a single csv file for the training set and one for the test set.
 
 ![Marine_Image](labelimg_csv.png)
@@ -32,14 +33,14 @@ Some of the columns were obvious and some were not. The LabelName is used pytorc
 
 Therefore, we wrote the xml_to_csv2.py program that calculated more of the pytorch-ssd columns as shown above. 
 
-# run xml_to_csv.py in training set subdirectories to create the csv label files as is shown below for the training set of images:
-
+#### run xml_to_csv2.py in training set subdirectories to create the csv label files as is shown below for the training set of images:
 python xml_to_csv2.py \
 -i /Users/craig/Documents/src/pytorch-ssd/data/open_images/train \
 -o /Users/craig/Documents/src/pytorch-ssd/data/open_images/sub-train-annotations-bbox.csv
 
 Still, the sub-train-annotations-bbox.csv had to be altered to conform to the true open_images format that was used  
 
+## data open_images subdirectories and structure
 On the Jetson NX the full marine dataset has the following structure:
 
 ~/data/open_images/train/
@@ -58,9 +59,9 @@ The class-description-bbox.csv has all of the LabelNames and descriptions for al
 It does not appear that the sub-validation-annotations-bbox.csv file is used, but we did have some images and the corresponding .csv file as was used in the original example.
 
 
-# Notes found in attached scripts.txt file
+## Notes found in attached scripts.txt file
 
-# VIDEO:
+### VIDEO:
 #This is pretty fast in Object Detection and near real-time
 python3 run_ssd_live_demo.py mb1-ssd models/mobilenet-v1-ssd-mp-0_675.pth models/voc-model-labels.txt '/dev/video1'  # dump core
 
