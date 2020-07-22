@@ -40,7 +40,7 @@ python xml_to_csv2.py \
 
 Still, the sub-train-annotations-bbox.csv had to be altered to conform to the true open_images format that was used  
 
-## data open_images subdirectories and structure
+## data open_images subdirectories
 On the Jetson NX the full marine dataset has the following structure:
 
 ~/data/open_images/train/
