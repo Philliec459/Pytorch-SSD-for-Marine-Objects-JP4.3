@@ -69,11 +69,11 @@ It does not appear that the sub-validation-annotations-bbox.csv file is used, bu
 ## Notes found in attached scripts.txt file
 
 ### VIDEO:
-#This is pretty fast in Object Detection and near real-time
-     python3 run_ssd_live_demo.py mb1-ssd models/mobilenet-v1-ssd-mp-0_675.pth models/voc-model-labels.txt '/dev/video1'  # dump core
+    #This is pretty fast in Object Detection and near real-time
+    python3 run_ssd_live_demo.py mb1-ssd models/mobilenet-v1-ssd-mp-0_675.pth models/voc-model-labels.txt '/dev/video1'  # dump core
 
-#Very good and runs well - best
-     python3 run_ssd_live_caffe2.py models/mobilenet-v1-ssd_init_net.pb models/mobilenet-v1-ssd_predict_net.pb models/voc-model-labels.txt  '/dev/video1'
+    #Very good and runs well - best
+    python3 run_ssd_live_caffe2.py models/mobilenet-v1-ssd_init_net.pb models/mobilenet-v1-ssd_predict_net.pb models/voc-model-labels.txt  '/dev/video1'
 
 
 
@@ -98,8 +98,8 @@ It does not appear that the sub-validation-annotations-bbox.csv file is used, bu
 
 
 ### run on mp4 file, works great:
-#python3 run_ssd_live_demo.py <net type>  <model path> <label path> [video file]
-      python3 run_ssd_live_demo.py mb1-ssd models/mb1-ssd-Epoch-99-Loss-1.9556251300705805.pth  models/open-images-model-labels.txt ./buoy_boats.mp4
+    #python3 run_ssd_live_demo.py <net type>  <model path> <label path> [video file]
+    python3 run_ssd_live_demo.py mb1-ssd models/mb1-ssd-Epoch-99-Loss-1.9556251300705805.pth  models/open-images-model-labels.txt ./buoy_boats.mp4
 
 
 ### try to use all but marine labels for objects. This works fine, but too many objects. 
