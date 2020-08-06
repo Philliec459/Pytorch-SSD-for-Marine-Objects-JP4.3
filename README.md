@@ -1,5 +1,9 @@
 # Pytorch-SSD for Marine Objects 
-The objective of this project is to identify marine objects using pytorch-ssd. This marine SSD repository was inspired by Dusty Franklin’s (@dusty-nv) pytorch-ssd GitHub repository found at the following link:
+The objective of this project is to identify marine objects using pytorch-ssd. 
+
+![Marine_Image](boat_buoy_1slide.png)
+
+This marine SSD repository was inspired by Dusty Franklin’s (@dusty-nv) pytorch-ssd GitHub repository found at the following link:
 
 https://github.com/dusty-nv/pytorch-ssd
 
